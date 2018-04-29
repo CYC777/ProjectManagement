@@ -1,0 +1,30 @@
+<%- model_class = Workproject -%>
+<div class="page-header">
+  <h3><% @workproject.title %></h3>
+  <h3><small>Organization -<%= tenant_name @workproject.tenant_id %></small></h3>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
+  <dd><%= @workproject.title %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:details) %>:</strong></dt>
+  <dd><%= @workproject.details %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:expected_completion_date) %>:</strong></dt>
+  <dd><%= @workproject.expected_completion_date %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:tenant_id) %>:</strong></dt>
+  <dd><%= @workproject.tenant_id %></dd>
+</dl>
+<%= render 'artifacts/list', artifacts: @workproject.artifacts %>
+<br />
+<br />
+
+<%= link_to '< Back to Organization Home', root_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_tenant_workproject_path(workproject: @workproject, tenant: @workproject.tenant_id), 
+              :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              tenant_workproject_path(@workproject, @workproject.tenant_id),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", 
+              :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
